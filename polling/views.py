@@ -1,15 +1,17 @@
 from django.shortcuts import render
 
 # Create your views here.
-# polling/views.py
+# blogging/views.py
 
 from django.shortcuts import render
 from django.http import Http404
-from models import Poll
+from polling.models import Poll
+
 
 def list_view(request):
     context = {'polls': Poll.objects.all()}
-    return render(request, 'polling/list.html', context)
+    return render(request, 'blogging/list.html', context)
+
 
 def detail_view(request, poll_id):
     try:
@@ -25,4 +27,4 @@ def detail_view(request, poll_id):
         poll.save()
 
     context = {'poll': poll}
-    return render(request, 'polling/detail.html', context)
+    return render(request, 'blogging/detail.html', context)
