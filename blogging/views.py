@@ -1,12 +1,24 @@
 from django.shortcuts import render
 from blogging.models import Post
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.template import loader
+
 
 # Create your views here.
+def detail_view(request, post_id):
+    published = Post.objects.exclude(author=None)
+    try:
+        post = published.get(pk=post_id)
+    except Post.DoesNotExist:
+        raise Http404
+    context = {'post': post}
+    return render(request, 'blogging/detail.html', context)
 
 
 def list_view(request):
-    context = {'poll': Poll.objects.all()}
+    published = Post.objects.exclude(author=None)
+    posts = published.order_by('-published_date')
+    context = {'posts': posts}
     return render(request, 'blogging/list.html', context)
 
 
