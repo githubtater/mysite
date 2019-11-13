@@ -19,7 +19,7 @@ class Category(models.Model):
     description = models.TextField(blank=True)
     posts = models.ManyToManyField(Post, blank=True, related_name='categories')
 
-    class Meta():
+    class Meta:
         verbose_name_plural = 'Categories'
 
     def __str__(self):
